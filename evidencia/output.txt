@@ -1,11 +1,14 @@
-Script started on 2026-06-01 17:35:35+00:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="117" LINES="55"]
-[?2004h]0;franco-diaz@vmachine-franco: ~/btrfs-lab[01;32mfranco-diaz@vmachine-franco[00m:[01;34m~/btrfs-lab[00m$ cd ~/btrfs-lab/scripts
-[?2004l[?2004h]0;franco-diaz@vmachine-franco: ~/btrfs-lab/scripts[01;32mfranco-diaz@vmachine-franco[00m:[01;34m~/btrfs-lab/scripts[00m$ ./run_all.sh
-[?2004l>> INICIANDO DEMO BTRFS ...
->> Limpiando firmas previas del disco...
-[sudo] password for franco-diaz: 
-/dev/sdb: 8 bytes were erased at offset 0x00010040 (btrfs): 5f 42 48 52 66 53 5f 4d
->> Creando sistema de archivos Btrfs...
+franco-diaz@vmachine-franco:~/btrfs-lab/scripts$ sudo ./run_all.sh
+INICIO DEL PROCESO BTRFS LAB
+Discos disponibles en el sistema:
+NAME
+     SIZE MODEL
+sda   25G VBOX HARDDISK
+sdb    5G VBOX HARDDISK
+sr0 1024M VBOX CD-ROM
+Ingrese el disco a utilizar (ej: sdb): sdb
+ADVERTENCIA: Se eliminarán TODOS los datos en /dev/sdb
+Escriba SI para continuar o NO para cancelar: si
 btrfs-progs v6.6.3
 See https://btrfs.readthedocs.io for more information.
 
@@ -17,7 +20,7 @@ NOTE: several default settings have changed in version 5.15, please make sure
       - enabled free-space-tree (-R free-space-tree)
 
 Label:              (null)
-UUID:               3baa5d27-1314-406d-9c70-7b780309e569
+UUID:               0d99afd5-b2ee-44ac-8668-fb6912d75a84
 Node size:          16384
 Sector size:        4096
 Filesystem size:    5.00GiB
@@ -32,43 +35,15 @@ Runtime features:   free-space-tree
 Checksum:           crc32c
 Number of devices:  1
 Devices:
-   ID        SIZE  PATH    
+   ID        SIZE  PATH
     1     5.00GiB  /dev/sdb
 
->> Creando punto de montaje...
->> Montando sistema de archivos...
->> Verificando montaje...
-/dev/sdb                           5,0G  5,8M  4,5G   1% /mnt/btrfs
->> Setup completado.
->> Creando subvolúmenes...
+[INFO] Disco formateado y montado correctamente en /mnt/btrfs
 Create subvolume '/mnt/btrfs/datos'
 Create subvolume '/mnt/btrfs/backups'
->> Listando subvolúmenes...
-ID 256 gen 7 top level 5 path datos
-ID 257 gen 7 top level 5 path backups
->> Subvolúmenes creados correctamente.
->> Creando archivo de prueba...
-Version original del archivo
->> Creando snapshot...
+Subvolúmenes creados correctamente
 Create a snapshot of '/mnt/btrfs/datos' in '/mnt/btrfs/backups/snapshot1'
->> Snapshot creado.
->> Contenido snapshot:
-Version original del archivo
->> Modificando archivo original...
-Cambio importante en el archivo
->> Contenido actual (datos):
-Version original del archivo
-Cambio importante en el archivo
->> Contenido snapshot (sin cambios):
-Version original del archivo
->> Diferencia demostrada (Copy-on-Write).
->> Eliminando archivo original...
->> Restaurando desde snapshot...
->> Verificando restauración...
-Version original del archivo
->> Restauración completada.
->> DEMO COMPLETADA. 
-[?2004h]0;franco-diaz@vmachine-franco: ~/btrfs-lab/scripts[01;32mfranco-diaz@vmachine-franco[00m:[01;34m~/btrfs-lab/scripts[00m$ exit
-[?2004lexit
-
-Script done on 2026-06-01 17:36:25+00:00 [COMMAND_EXIT_CODE="0"]
+[OK] Snapshot creado correctamente con archivo inicial
+[OK] Archivo modificado correctamente
+Archivo restaurado correctamente desde snapshot
+PROCESO COMPLETADO CORRECTAMENTE
