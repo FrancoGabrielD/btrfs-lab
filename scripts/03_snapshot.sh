@@ -2,15 +2,17 @@
 
 # Script: Creación de archivo y snapshot inicial
 
-echo ">> Creando archivo de prueba..."
+set -e
 
-echo "Version original del archivo" | sudo tee /mnt/btrfs/datos/info.txt
+if [[ "$EUID" -ne 0 ]]; then
+    echo "Ejecutar con sudo"
+    exit 1
+fi
 
-echo ">> Creando snapshot..."
+# Crear archivo antes del snapshot
+echo "Version original del archivo" > /mnt/btrfs/datos/info.txt
 
-sudo btrfs subvolume snapshot /mnt/btrfs/datos /mnt/btrfs/backups/snapshot1
+# Crear snapshot del estado inicial
+btrfs subvolume snapshot /mnt/btrfs/datos /mnt/btrfs/backups/snapshot1
 
-echo ">> Snapshot creado."
-
-echo ">> Contenido snapshot:"
-sudo cat /mnt/btrfs/backups/snapshot1/info.txt
+echo "[OK] Snapshot creado correctamente con archivo inicial"

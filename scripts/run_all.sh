@@ -2,12 +2,16 @@
 
 # Script maestro para ejecutar toda la práctica
 
-echo ">> INICIANDO DEMO BTRFS ..."
+# Detener ejecución si algo falla
+set -e
 
-./01_setup_btrfs.sh
-./02_subvolumenes.sh
-./03_snapshot.sh
-./04_modificacion.sh
-./05_restore.sh
+echo "INICIO DEL PROCESO BTRFS LAB"
 
-echo ">> DEMO COMPLETADA. "
+# Ejecutar scripts en orden
+sudo bash 01_setup_btrfs.sh
+sudo bash 02_subvolumenes.sh
+sudo bash 03_snapshot.sh
+sudo bash 04_modificacion.sh
+sudo bash 05_restore.sh
+
+echo "PROCESO COMPLETADO CORRECTAMENTE"

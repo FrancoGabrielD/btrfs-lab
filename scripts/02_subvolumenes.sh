@@ -1,13 +1,18 @@
 #!/bin/bash
+set -e
 
 # Script: Creación de subvolúmenes en Btrfs
 
-echo ">> Creando subvolúmenes..."
+# Verifica permisos de root
+if [[ "$EUID" -ne 0 ]]; then
+    echo "Ejecutar con sudo"
+    exit 1
+fi
 
-sudo btrfs subvolume create /mnt/btrfs/datos
-sudo btrfs subvolume create /mnt/btrfs/backups
+# Crea subvolumen para datos
+btrfs subvolume create /mnt/btrfs/datos
 
-echo ">> Listando subvolúmenes..."
-sudo btrfs subvolume list /mnt/btrfs
+# Crea subvolumen para backups/snapshots
+btrfs subvolume create /mnt/btrfs/backups
 
-echo ">> Subvolúmenes creados correctamente."
+echo "Subvolúmenes creados correctamente"

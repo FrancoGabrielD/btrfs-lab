@@ -1,15 +1,15 @@
 #!/bin/bash
 
-# Script: Modificación de archivo para demostrar Copy-on-Write
+# Script: Modificación de archivo para demostrar CoW
 
-echo ">> Modificando archivo original..."
+set -e
 
-echo "Cambio importante en el archivo" | sudo tee -a /mnt/btrfs/datos/info.txt
+if [[ "$EUID" -ne 0 ]]; then
+    echo "Ejecutar con sudo"
+    exit 1
+fi
 
-echo ">> Contenido actual (datos):"
-sudo cat /mnt/btrfs/datos/info.txt
+# Modificar archivo existente
+echo "Cambio importante en el archivo" >> /mnt/btrfs/datos/info.txt
 
-echo ">> Contenido snapshot (sin cambios):"
-sudo cat /mnt/btrfs/backups/snapshot1/info.txt
-
-echo ">> Diferencia demostrada (Copy-on-Write)."
+echo "[OK] Archivo modificado correctamente"

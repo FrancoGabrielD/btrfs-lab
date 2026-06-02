@@ -2,13 +2,16 @@
 
 # Script: Simulación de pérdida y restauración de datos
 
-echo ">> Eliminando archivo original..."
-sudo rm /mnt/btrfs/datos/info.txt
+# Detener ejecución ante errores
+set -e
 
-echo ">> Restaurando desde snapshot..."
-sudo cp /mnt/btrfs/backups/snapshot1/info.txt /mnt/btrfs/datos/
+# Verificar permisos
+if [[ "$EUID" -ne 0 ]]; then
+    echo "Ejecutar con sudo"
+    exit 1
+fi
 
-echo ">> Verificando restauración..."
-sudo cat /mnt/btrfs/datos/info.txt
+# Restaurar archivo desde snapshot
+cp /mnt/btrfs/backups/snapshot1/info.txt /mnt/btrfs/datos/info.txt
 
-echo ">> Restauración completada."
+echo "Archivo restaurado correctamente desde snapshot"
