@@ -11,6 +11,12 @@ Se implementan y analizan características clave como:
 * Copy-on-Write (CoW)
 * Recuperación de datos
 
+Además, se incorporan buenas prácticas como:
+
+* Validación de entrada del usuario
+* Manejo de errores
+* Seguridad en ejecución de scripts
+
 ---
 
 ## 🎯 Objetivos
@@ -22,16 +28,11 @@ Se implementan y analizan características clave como:
 
 ---
 
-## 🖥️ Entorno de trabajo
+## ⚙️ Requisitos
 
-* Sistema operativo: Ubuntu Server
-* Plataforma: VirtualBox
-* Disco adicional: `/dev/sdb`
-* Herramientas utilizadas:
-
-  * `btrfs-progs`
-  * `bash`
-  * `git`
+* Sistema Linux (Ubuntu recomendado)
+* Permisos de superusuario (sudo)
+* Paquete btrfs-progs instalado
 
 ---
 
@@ -48,19 +49,15 @@ btrfs-lab/
 │   ├── 06_cleanup.sh
 │   └── run_all.sh
 ├── evidencia/
-│   └── output.txt
-├── docs/
+│   ├── estructura_snapshot.jpeg
+│   ├── lsblk.jpeg
+│   ├── output.txt
+│   ├── run_all_final.jpeg
+│   ├── snapshot_demo_final.jpeg
+│   ├── subvolumenes.jpeg
 └── README.md
+└── LICENSE
 ```
-
----
-
-## ⚙️ Requisitos
-
-* Linux (Ubuntu Server recomendado)
-* Acceso root o sudo
-* Disco adicional disponible (ej: `/dev/sdb`)
-
 ---
 
 ## 🚀 Ejecución
@@ -86,42 +83,54 @@ Ejecutar la demo completa:
 
 ---
 
-## 🔬 Descripción de scripts
+## 🔄 Flujo de funcionamiento
 
-* `01_setup_btrfs.sh` → Inicializa el sistema de archivos Btrfs
-* `02_subvolumenes.sh` → Crea subvolúmenes
-* `03_snapshot.sh` → Genera snapshot inicial
-* `04_modificacion.sh` → Modifica datos y demuestra Copy-on-Write
-* `05_restore.sh` → Recupera datos desde snapshot
-* `06_cleanup.sh` → Limpieza del entorno (opcional)
-* `run_all.sh` → Ejecuta toda la práctica automáticamente
+El laboratorio sigue el siguiente proceso:
 
----
-
-## 📸 Evidencia
-
-En la carpeta `evidencia/` se incluyen:
-
-* Salidas de comandos
-* Registro de ejecución (`script output.txt`)
-* Resultados obtenidos durante la práctica
-
----
-
-## 🧠 Conceptos demostrados
-
-* Copy-on-Write (CoW)
-* Snapshots eficientes
-* Organización mediante subvolúmenes
-* Recuperación de datos sin pérdida
+1. Preparación del entorno
+   * Selección del dispositivo
+   * Formateo en BTRFS
+   * Montaje del sistema
+2. Creación de subvolúmenes
+   * /datos
+   * /backups
+3. Creación de snapshot inicial
+   * Se crea un archivo info.txt
+   * Se genera un snapshot del estado original
+4. Modificación del archivo
+   * Se altera el contenido para simular cambios o corrupción
+5. Restauración
+   * Se recupera el archivo original desde el snapshot
+6. Limpieza
+   * Eliminación de recursos creados (opcional)
 
 ---
 
-## 📚 Referencias
+## 🔐 Seguridad y buenas prácticas implementadas
+* Confirmación antes de operaciones destructivas
+* Validación de entradas del usuario
+* Uso de rutas absolutas
+* Verificación de existencia de archivos antes de operar
+* Control de errores con set -e
+* Requerimiento de permisos de superusuario
 
-* https://btrfs.readthedocs.io
-* https://wiki.archlinux.org/title/Btrfs
-* Manual de Linux (`man btrfs`)
+---
+
+## ⚠️ Advertencias
+* Este proyecto elimina datos del dispositivo seleccionado
+* No utilizar en discos con información importante
+* Usar preferentemente en máquinas virtuales
+
+---
+
+## 🎯 Objetivo académico
+
+Demostrar el uso práctico de BTRFS y comprender:
+
+* Gestión avanzada de almacenamiento
+* Importancia de snapshots
+* Recuperación ante fallos
+* Automatización mediante scripts
 
 ---
 
