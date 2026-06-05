@@ -47,6 +47,8 @@ btrfs-lab/
 │   ├── 04_modificacion.sh
 │   ├── 05_restore.sh
 │   ├── 06_cleanup.sh
+│   ├── 07_show_details.sh
+│   ├── lib.sh
 │   └── run_all.sh
 ├── evidencia/
 │   ├── estructura_snapshot.jpeg
@@ -80,6 +82,34 @@ Ejecutar la demo completa:
 ```
 ./run_all.sh
 ```
+---
+
+## 🛠️ Comandos útiles de Btrfs
+
+Durante el desarrollo de este laboratorio se utilizaron distintos comandos fundamentales para la administración e inspección de sistemas de archivos Btrfs:
+
+- `btrfs subvolume list /mnt/btrfs`  
+  Permite listar todos los subvolúmenes existentes, incluyendo snapshots.
+
+- `btrfs filesystem usage /mnt/btrfs`  
+  Muestra el uso real del sistema de archivos, diferenciando entre datos, metadatos y espacio libre.
+
+- `btrfs filesystem df /mnt/btrfs`  
+  Proporciona estadísticas del uso del espacio por tipo de bloque.
+
+- `btrfs filesystem du /mnt/btrfs`  
+  Permite analizar el uso real de espacio considerando el comportamiento Copy-on-Write.
+
+- `btrfs subvolume snapshot /mnt/btrfs/datos /mnt/btrfs/backups/snapshot1`  
+  Crea un snapshot de un subvolumen.
+
+- `btrfs subvolume delete <ruta>`  
+  Elimina un subvolumen o snapshot.
+
+- `ls -la` y `tree`  
+  Utilizados para inspeccionar la estructura de directorios y contenido de snapshots.
+
+Estos comandos fueron integrados en scripts para automatizar la gestión del sistema. tambien se encuentra disponible el Script `07_show_details.sh` que brinda informacion detallada.
 
 ---
 
@@ -131,6 +161,28 @@ Demostrar el uso práctico de BTRFS y comprender:
 * Importancia de snapshots
 * Recuperación ante fallos
 * Automatización mediante scripts
+
+---
+## 📚 ¿Qué aprendí?
+
+A lo largo de este trabajo práctico se comprendieron conceptos clave del sistema de archivos Btrfs:
+
+- **Copy-on-Write (CoW):**  
+  Btrfs no duplica los datos inmediatamente al crear un snapshot. En su lugar, comparte bloques hasta que se modifican, lo que permite un uso eficiente del espacio.
+
+- **Snapshots eficientes:**  
+  Los snapshots ocupan poco espacio inicialmente, ya que solo registran diferencias respecto al estado original.
+
+- **Gestión avanzada del almacenamiento:**  
+  Btrfs permite separar datos y backups mediante subvolúmenes, facilitando la organización y recuperación.
+
+- **Uso real vs uso lógico:**  
+  Herramientas como `btrfs filesystem du` muestran el uso real del disco, que puede diferir del tamaño aparente de los archivos.
+
+- **Importancia de la inspección del sistema:**  
+  Comandos como `btrfs filesystem usage` permiten entender cómo se distribuyen los datos internamente.
+
+En conclusión, Btrfs ofrece un enfoque moderno y eficiente para la gestión de sistemas de archivos, destacándose por su flexibilidad, seguridad y optimización del espacio.
 
 ---
 
