@@ -1,17 +1,21 @@
 #!/bin/bash
 
-# Script: Simulación de pérdida y restauración de datos
+# Script: Restauración completa desde snapshot
 
-# Detener ejecución ante errores
-set -e
+source ./lib.sh
+check_root
 
-# Verificar permisos
-if [[ "$EUID" -ne 0 ]]; then
-    echo "Ejecutar con sudo"
+if [[ ! -d /mnt/btrfs/backups/snapshot1 ]]; then
+    echo "[ERROR] Snapshot no existe"
     exit 1
 fi
 
-# Restaurar archivo desde snapshot
-cp /mnt/btrfs/backups/snapshot1/info.txt /mnt/btrfs/datos/info.txt
+confirm_action
 
-echo "Archivo restaurado correctamente desde snapshot"
+# Eliminar subvolumen actual
+btrfs subvolume delete /mnt/btrfs/datos
+
+# Restaurar snapshot como nuevo subvolumen
+btrfs subvolume snapshot /mnt/btrfs/backups/snapshot1 /mnt/btrfs/datos
+
+echo "[OK] Rollback completo realizado"

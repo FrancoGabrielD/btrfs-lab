@@ -12,7 +12,7 @@ if [[ "$EUID" -ne 0 ]]; then
 fi
 
 # Confirmación antes de limpiar
-echo "⚠️ Esto desmontará y eliminará datos en /mnt/btrfs"
+echo "sto desmontará y eliminará datos en /mnt/btrfs"
 read -p "Escriba SI para continuar: " CONFIRM
 
 # Convertir a mayúsculas automáticamente

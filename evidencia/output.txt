@@ -1,14 +1,16 @@
-franco-diaz@vmachine-franco:~/btrfs-lab/scripts$ sudo ./run_all.sh
+Script started on 2026-06-05 19:32:45+00:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="133" LINES="66"]
+[?2004h]0;franco-diaz@vmachine-franco: ~/btrfs-lab/scripts[01;32mfranco-diaz@vmachine-franco[00m:[01;34m~/btrfs-lab/scripts[00m$ sudo ./run_all.sh 
+[?2004l[sudo] password for franco-diaz: 
 INICIO DEL PROCESO BTRFS LAB
-Discos disponibles en el sistema:
+Discos disponibles:
 NAME
      SIZE MODEL
 sda   25G VBOX HARDDISK
 sdb    5G VBOX HARDDISK
 sr0 1024M VBOX CD-ROM
-Ingrese el disco a utilizar (ej: sdb): sdb
-ADVERTENCIA: Se eliminarán TODOS los datos en /dev/sdb
-Escriba SI para continuar o NO para cancelar: si
+Ingrese el disco a utilizar (ej: /dev/sdb): /dev/sdb
+ADVERTENCIA: Se eliminarán datos del dispositivo seleccionado
+¿Desea continuar? (si/no): si
 btrfs-progs v6.6.3
 See https://btrfs.readthedocs.io for more information.
 
@@ -20,7 +22,7 @@ NOTE: several default settings have changed in version 5.15, please make sure
       - enabled free-space-tree (-R free-space-tree)
 
 Label:              (null)
-UUID:               0d99afd5-b2ee-44ac-8668-fb6912d75a84
+UUID:               28c7ecc5-c786-455a-9191-e34fbae624aa
 Node size:          16384
 Sector size:        4096
 Filesystem size:    5.00GiB
@@ -35,15 +37,115 @@ Runtime features:   free-space-tree
 Checksum:           crc32c
 Number of devices:  1
 Devices:
-   ID        SIZE  PATH
+   ID        SIZE  PATH    
     1     5.00GiB  /dev/sdb
 
-[INFO] Disco formateado y montado correctamente en /mnt/btrfs
+[OK] Disco formateado y montado correctamente
 Create subvolume '/mnt/btrfs/datos'
 Create subvolume '/mnt/btrfs/backups'
 Subvolúmenes creados correctamente
 Create a snapshot of '/mnt/btrfs/datos' in '/mnt/btrfs/backups/snapshot1'
-[OK] Snapshot creado correctamente con archivo inicial
-[OK] Archivo modificado correctamente
-Archivo restaurado correctamente desde snapshot
-PROCESO COMPLETADO CORRECTAMENTE
+[OK] Snapshot creado con estado inicial
+ID 256 gen 7 top level 5 path datos
+ID 257 gen 7 top level 5 path backups
+ID 258 gen 7 top level 257 path backups/snapshot1
+[OK] Archivo modificado
+     Total   Exclusive  Set shared  Filename
+     0.00B       0.00B           -  /mnt/btrfs/datos/info.txt
+     0.00B       0.00B           -  /mnt/btrfs/datos
+     0.00B       0.00B           -  /mnt/btrfs/backups/snapshot1/info.txt
+     0.00B       0.00B           -  /mnt/btrfs/backups/snapshot1
+     0.00B       0.00B           -  /mnt/btrfs/backups
+     0.00B       0.00B       0.00B  /mnt/btrfs
+ADVERTENCIA: Se eliminarán datos del dispositivo seleccionado
+¿Desea continuar? (si/no): si
+Delete subvolume 256 (no-commit): '/mnt/btrfs/datos'
+Create a snapshot of '/mnt/btrfs/backups/snapshot1' in '/mnt/btrfs/datos'
+[OK] Rollback completo realizado
+[OK] Proceso completo finalizado
+[?2004h]0;franco-diaz@vmachine-franco: ~/btrfs-lab/scripts[01;32mfranco-diaz@vmachine-franco[00m:[01;34m~/btrfs-lab/scripts[00m$ sudo ./s[K07_show_details.sh 
+[?2004l=============================
+INFORMACIÓN DEL SISTEMA BTRFS
+=============================
+
+ESTRUCTURA DE DIRECTORIOS (/mnt/btrfs)
+--------------------------------------
+[01;34m/mnt/btrfs[0m
+├── [01;34mbackups[0m
+│   └── [01;34msnapshot1[0m
+│       └── info.txt
+└── [01;34mdatos[0m
+    └── info.txt
+
+4 directories, 2 files
+
+SUBVOLUMENES DISPONIBLES
+------------------------
+ID 257 gen 8 top level 5 path backups
+ID 258 gen 8 top level 257 path backups/snapshot1
+ID 259 gen 8 top level 5 path datos
+
+USO DE ESPACIO (filesystem usage)
+---------------------------------
+Overall:
+    Device size:		   5.00GiB
+    Device allocated:		 536.00MiB
+    Device unallocated:		   4.48GiB
+    Device missing:		     0.00B
+    Device slack:		     0.00B
+    Used:			 416.00KiB
+    Free (estimated):		   4.48GiB	(min: 2.25GiB)
+    Free (statfs, df):		   4.48GiB
+    Data ratio:			      1.00
+    Metadata ratio:		      2.00
+    Global reserve:		   5.50MiB	(used: 0.00B)
+    Multiple profiles:		        no
+
+Data,single: Size:8.00MiB, Used:0.00B (0.00%)
+   /dev/sdb	   8.00MiB
+
+Metadata,DUP: Size:256.00MiB, Used:192.00KiB (0.07%)
+   /dev/sdb	 512.00MiB
+
+System,DUP: Size:8.00MiB, Used:16.00KiB (0.20%)
+   /dev/sdb	  16.00MiB
+
+Unallocated:
+   /dev/sdb	   4.48GiB
+
+USO DETALLADO (du - Copy-on-Write)
+----------------------------------
+     Total   Exclusive  Set shared  Filename
+     0.00B       0.00B           -  /mnt/btrfs/backups/snapshot1/info.txt
+     0.00B       0.00B           -  /mnt/btrfs/backups/snapshot1
+     0.00B       0.00B           -  /mnt/btrfs/backups
+     0.00B       0.00B           -  /mnt/btrfs/datos/info.txt
+     0.00B       0.00B           -  /mnt/btrfs/datos
+     0.00B       0.00B       0.00B  /mnt/btrfs
+
+CONTENIDO DEL SNAPSHOT
+----------------------
+total 4
+drwxr-xr-x 1 root root 16 jun  5 19:33 .
+drwxr-xr-x 1 root root 18 jun  5 19:33 ..
+-rw-r--r-- 1 root root 29 jun  5 19:33 info.txt
+
+INFORMACIÓN GENERAL DEL FILESYSTEM
+----------------------------------
+Label: none  uuid: 28c7ecc5-c786-455a-9191-e34fbae624aa
+	Total devices 1 FS bytes used 208.00KiB
+	devid    1 size 5.00GiB used 536.00MiB path /dev/sdb
+
+
+==========================
+[OK] Inspección completada
+==========================
+[?2004h]0;franco-diaz@vmachine-franco: ~/btrfs-lab/scripts[01;32mfranco-diaz@vmachine-franco[00m:[01;34m~/btrfs-lab/scripts[00m$ exit[K[K[K[Ksudo ./06_cleanup.sh 
+[?2004lsto desmontará y eliminará datos en /mnt/btrfs
+Escriba SI para continuar: si
+Sistema desmontado correctamente
+Limpieza finalizada
+[?2004h]0;franco-diaz@vmachine-franco: ~/btrfs-lab/scripts[01;32mfranco-diaz@vmachine-franco[00m:[01;34m~/btrfs-lab/scripts[00m$ exit
+[?2004lexit
+
+Script done on 2026-06-05 19:33:48+00:00 [COMMAND_EXIT_CODE="0"]

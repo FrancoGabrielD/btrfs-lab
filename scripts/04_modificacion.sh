@@ -1,15 +1,18 @@
 #!/bin/bash
 
-# Script: Modificación de archivo para demostrar CoW
+# Script: Modificación para demostrar Copy-on-Write
 
-set -e
+source ./lib.sh
+check_root
 
-if [[ "$EUID" -ne 0 ]]; then
-    echo "Ejecutar con sudo"
+if [[ ! -f /mnt/btrfs/datos/info.txt ]]; then
+    echo "[ERROR] Archivo no existe"
     exit 1
 fi
 
-# Modificar archivo existente
 echo "Cambio importante en el archivo" >> /mnt/btrfs/datos/info.txt
 
-echo "[OK] Archivo modificado correctamente"
+echo "[OK] Archivo modificado"
+
+# Mostrar uso de espacio (CoW)
+btrfs filesystem du /mnt/btrfs

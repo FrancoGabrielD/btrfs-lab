@@ -1,18 +1,23 @@
 #!/bin/bash
 
-# Script: Creación de archivo y snapshot inicial
+# Script: Crear archivo inicial + snapshot
 
-set -e
+source ./lib.sh
+check_root
 
-if [[ "$EUID" -ne 0 ]]; then
-    echo "Ejecutar con sudo"
+# Validar que exista montaje
+if [[ ! -d /mnt/btrfs/datos ]]; then
+    echo "[ERROR] Subvolumen /datos no existe"
     exit 1
 fi
 
-# Crear archivo antes del snapshot
+# Crear archivo base
 echo "Version original del archivo" > /mnt/btrfs/datos/info.txt
 
-# Crear snapshot del estado inicial
+# Crear snapshot
 btrfs subvolume snapshot /mnt/btrfs/datos /mnt/btrfs/backups/snapshot1
 
-echo "[OK] Snapshot creado correctamente con archivo inicial"
+echo "[OK] Snapshot creado con estado inicial"
+
+# Mostrar info (mejora didáctica)
+btrfs subvolume list /mnt/btrfs
