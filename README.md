@@ -51,12 +51,13 @@ btrfs-lab/
 │   ├── lib.sh
 │   └── run_all.sh
 ├── evidencia/
+│   ├── details_system.jpeg
 │   ├── estructura_snapshot.jpeg
 │   ├── lsblk.jpeg
 │   ├── output.txt
 │   ├── run_all_final.jpeg
 │   ├── snapshot_demo_final.jpeg
-│   ├── subvolumenes.jpeg
+│   └── subvolumenes.jpeg
 └── README.md
 └── LICENSE
 ```
